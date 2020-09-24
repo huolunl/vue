@@ -1,0 +1,112 @@
+
+
+
+<!-- 插槽就是为了传递复杂的标签到模版内部， 模版用slot 去接收 然后渲染 -->
+<!-- 作用域插槽就是一个返回组件的函数， solt 还能给这个函数传参数， 同时 slot 也是组件的接收者 -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+
+        <todo-list>
+            <!--   嵌套在todo-list 内部的标签会被todo list 模版的slot 接收到 -->
+            <!-- todoitem 使用的数据是 vm的数据了  -->
+            <todo-item v-for="item in list" :title="item.title" :del="item.del">
+                <!--  是:不是= ， 使用多个插槽时 可以给插槽命名， 在模版中插入不同位置,具名插槽 -->
+                <!-- 这里真是翔一样的语法，用于插槽获取组件内 data 的数据 -->
+                <template v-slot:pre='{value}'>
+                    <span>前置图标 {{value}}</span>
+                </template>
+                <!-- <template v-slot:suf>
+                    <span>后置图标</span>
+                </template> -->
+            </todo-item>
+        </todo-list>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+            // 组件必须写在vue 对象上面
+            // 没有var!!   组件名字， 组件内容
+            Vue.component('todo-item',{
+            //  模版要用到的变量
+            props: {
+                title: String,
+                del: {
+                    type: Boolean,
+                    default: false,
+                }
+
+            },
+            // 模版也就是todo-item这个组件的内容
+            // slot的 ：value 是 传data的数据到 外部的template标签
+            // slot 内的😄 是默认值, 当没有template 与之对应时生效
+            template: `
+            <li>
+            <slot name="pre" :value="value"></slot>
+            <span v-if='!del'>{{title}}</span>
+            <button v-show="!del">删除</button>
+            <slot name="suf">😄</slot>
+            </li>
+            `,
+            data: function() {
+                return {
+                    value: Math.random()
+                }
+            },
+            methods: {
+
+            },
+        })
+
+        Vue.component('todo-list',{
+            // slot 插槽接收 todolit 内嵌的标签
+            template: `
+            <ul>
+                <slot></slot>
+            </ul>
+            `,
+            // data 是 模版中要用到的数据， props 是模版中的入参数
+            data: function(){
+                return {
+                        list: [
+                    {
+                        title: "课程1",
+                        del: false,
+                    },{
+                        title: "课程2",
+                        del: false,
+                    }
+                    ]
+                }
+            },
+
+        })
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: "sss",
+                list: [
+                    {
+                        title: "课程1",
+                        del: false,
+                    },{
+                        title: "课程2",
+                        del: false,
+                    }
+                    ]
+
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+    <li>
+        <!-- 原生dom绑定事件 点击动作触发vm.clickhandler函数 -->
+    <button @click="clickhandler">add</button>
+    <todo-list></todo-list>
+    </li>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 没有var!!   组件名字， 组件内容
+         Vue.component('todo-item',{
+        //  模版要用到的变量
+            props: {
+                title: String,
+                del: {
+                    type: Boolean,
+                    default: false,
+                }
+
+            },
+            // 模版也就是todo-item这个组件的内容
+            template: `
+            <li>
+            <span v-if='!del'>{{title}}</span>
+            <button v-show="!del" @click="handleclick">删除</button>
+            </li>
+            `,
+            data: function() {
+                return {
+                    a:1
+                }
+            },
+            methods: {
+                handleclick(){
+                    // 这里代表触发父组件也就是 todo-list组件中的模版 todo-item上delete事件 
+                    // this 可以指向props 也可以指向 data
+                    this.$emit("delete",this.title)
+                }
+            },
+        })
+
+        Vue.component('todo-list',{
+            // 组件模版绑定事件，和外部一致, 自定义组件绑定事件,一般由子组件的函数去触发
+            template: `
+            <ul>
+            <todo-item @delete="handleDelete" v-for="item in list" :title="item.title" :del="item.del"></todo-item>
+            <button @click="clickhandler">add</button>
+            </ul>
+            `,
+            // data 是 模版中要用到的数据， props 是模版中的入参数
+            data: function(){
+                return {
+                        list: [
+                    {
+                        title: "课程1",
+                        del: false,
+                    },{
+                        title: "课程2",
+                        del: false,
+                    }
+                    ]
+                }
+            },
+            methods:{
+                clickhandler(){
+                    console.log("comcomcom")
+                },
+                handleDelete(title){
+                    console.log(title)
+                    console.log("delete")
+                }
+            }
+
+        })
+        var vm = new Vue({
+            el: '#app',
+            methods: {
+                clickhandler(){
+                    console.log("hahha")
+                },
+            },
+        })
+    </script>
+</body>
+</html>

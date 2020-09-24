@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- {{}} 支持表达式， 不支持语句 -->
+    <div id="app"> {{message}} {{message + message}}
+        <!-- ：相当于 v-bind，此时的“message”实际代表vm.message -->
+        <div :id="message"></div>
+        <!-- item 依次取 list里的每一个元素 -->
+        <ul>
+            <li v-for="item in list">
+            <!-- if else 只渲染为true的 -->
+            <span v-if="!item.del">{{item.title}}</span>
+            <span v-else>{{item.title}}</span>
+            <!-- v-show控制是否显示，是一定会渲染的 -->
+            <button v-show="!item.del">删除</button>
+        </li>
+    </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: "sss",
+                list: [
+                {
+                    title: "课程1",
+                    del: false,
+                },{
+                    title: "课程2",
+                    del: false,
+                }
+                ]
+            }
+        })
+    </script>
+    <script>
+
+    </script>
+</body>
+</html>

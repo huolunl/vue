@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+                      <!-- 遍历vm.list, 取得变量item。 给title赋值， 这里是引号-->
+        <todo-item v-for="item in list" :title="item.title" :del="item.del"></todo-item>
+
+        <!--  必须定义在el 内部 尽管他已经不依赖el-->
+        <todo-list></todo-list>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+
+            // 组件必须写在vue 对象上面
+            // 没有var!!   组件名字， 组件内容
+            Vue.component('todo-item',{
+            //  模版要用到的变量
+            props: {
+                title: String,
+                del: {
+                    type: Boolean,
+                    default: false,
+                }
+
+            },
+            // 模版也就是todo-item这个组件的内容
+            template: `
+            <li>
+            <span v-if='!del'>{{title}}</span>
+            <button v-show="!del">删除</button>
+            </li>
+            `,
+            data: function() {
+                return {}
+            },
+            methods: {
+
+            },
+        })
+
+        Vue.component('todo-list',{
+            template: `
+            <ul>
+            <todo-item v-for="item in list" :title="item.title" :del="item.del"></todo-item>
+            </ul>
+            `,
+            // data 是 模版中要用到的数据， props 是模版中的入参数
+            data: function(){
+                return {
+                        list: [
+                    {
+                        title: "课程1",
+                        del: false,
+                    },{
+                        title: "课程2",
+                        del: false,
+                    }
+                    ]
+                }
+            },
+
+        })
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: "sss",
+                list: [
+                    {
+                        title: "课程1",
+                        del: false,
+                    },{
+                        title: "课程2",
+                        del: false,
+                    }
+                    ]
+            }
+        })
+
+    </script>
+</body>
+</html>
