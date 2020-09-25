@@ -9,7 +9,7 @@ console.log(mystr3)
 
 function target(formats){
     console.log(formats)
-}
+    }
 
 // 模版可以直接调用函数
 target`ni${name}ssss`
@@ -60,7 +60,7 @@ console.log(c)
 let [...other] = [1,2,3,4,5,6,7]
 console.log(other)  //[1,2,3,4,5,6,7]
 
-let {name2, age} = {name2:"huolun",age:20}
+let {name, age} = {name:"huolun",age:20}
 console.log(name)
 console.log(age)
 
@@ -250,9 +250,50 @@ console.log(add())
 {
     //------ 循环对象--------
     let list = [10,20,30]
+    let mystr = "你好"
+    let mymap = new Map();
+    mymap.set("js","javascript")
+    mymap.set("pl","perl")
+    mymap.set("py","python")
 
+    // 循环字符串
+    for (let val of mystr){
+        console.log(val)
+    }
 
+    // 循环map
+    for (let [key,value] of mymap){
+        console.log(key)
+        console.log(value)
+    }
+}
 
+{
+    // todo 可迭代对象， 生成器， 迭代器
+//------可迭代对象--------
 
+// class Player {
+//     constructor(list){
+//         this.list = list
+//     }
+//     [Symbol.iterator](){
+//         return 1
+
+//     }
+// }
+// let player=new Player("火轮","dddd")
+// for (let tmp of player){
+//     console.log(tmp)
+// }
 
 }
+
+{
+// ------ 模块化设计-----
+function mo(){
+    return "modul"
+}
+export {mo}
+
+}
+
