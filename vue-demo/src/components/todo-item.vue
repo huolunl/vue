@@ -4,7 +4,7 @@
             <span v-if='!del'>{{title}}</span>
             <button v-show="!del">删除</button>
             <slot name="suf">😄</slot>
-            </li>
+    </li>
 </template>
 
 <script>
