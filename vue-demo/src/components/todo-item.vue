@@ -1,7 +1,7 @@
 <template>
     <li>
     <slot name="pre" :value="value"></slot>
-            <span v-if='!del'>{{title}}</span>
+            <span v-if='!del'>{{title3}}</span>
             <button v-show="!del">删除</button>
             <slot name="suf">😄</slot>
     </li>
@@ -13,7 +13,7 @@ export default {
             // 没有var!!   组件名字， 组件内容
             //  模版要用到的变量
             props: {
-                title: String,
+                title3: String,
                 del: {
                     type: Boolean,
                     default: false,
