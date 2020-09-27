@@ -1,11 +1,23 @@
 <template>
       <div id='app'>
+        <ss :pname="message">
+          <!-- 插槽填充, 填充模版中火轮这个插槽-->
+          <template v-slot:huolun> 
+                      <span >pppp</span>
+          </template>
+        </ss>
+        <!-- 加上空格就是字符串 -->
+        <!-- 自定义事件一般是子组件传过来的 -->
+        <emit @add-event="logg"></emit>
+        <props></props>
+        <classobjbind></classobjbind>
+        <classbind></classbind>
         <watch></watch>
         <ifand-for></ifand-for>
         <index></index>
         <!-- v-model 就是一个语法糖 相当于 :value="message" 配合事件就改变message， 本质上还是单项数据流 -->
         <input v-model="message">{{message}}
-        <todolist>
+        <todo-list>
             <!--   嵌套在todo-list 内部的标签会被todo list 模版的slot 接收到 -->
             <!-- todoitem 使用的数据是 vm的数据了  -->
             <todo-item v-for="item in list" :key="item.dd" v-bind:title3="item.title2" v-bind:del="item.del">
@@ -18,7 +30,7 @@
                     <span>后置图标</span>
                 </template> -->
             </todo-item>
-        </todolist>
+        </todo-list>
         <hello-world></hello-world>
         <mygame></mygame>
         <von></von>
@@ -37,12 +49,18 @@ import von from './components/von.vue'
 import myfliter from './components/myfilters.vue'
 import computed from './components/computed.vue'
 import watch from './components/watch.vue'
+import classbind from './components/classbind.vue'
+import classobjbind from './components/classobjbind.vue'
+import props from './components/props.vue'
+import emit from './components/emit.vue'
+import slot from './components/slot.vue'
 
 export default {
 
   name: 'app',
+  // 局部注册组件
   components: {
-    Todolist,
+    'todo-list':Todolist,
     TodoItem,
     HelloWorld,
     Index,
@@ -51,7 +69,12 @@ export default {
     von,
     myfliter,
     computed,
-    watch
+    watch,
+    classbind,
+    classobjbind,
+    props,
+    emit,
+    "ss": slot
   },
   data(){ 
     return {
@@ -75,6 +98,9 @@ export default {
   methods:{
     change(){
       this.checked="dddd"
+    },
+    logg: function(pval){
+      console.log(pval.result)
     }
 
   }

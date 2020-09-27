@@ -20,11 +20,11 @@ export default {
             priceinTax:0,
             priceChinaRMB:0
         }
-
     },
     watch: {
         // 监听price的变化， price变化就触发这个函数
         price: function(newvalue,oldvalue){
+            console.log(newvalue,oldvalue)
             this.priceinTax = Math.round(this.price *1.08)
             this.priceChinaRMB= Math.round(this.priceinTax/16.75)
         }
@@ -34,6 +34,5 @@ export default {
             this.price += 10000
         }
     }
-
 }
 </script>
