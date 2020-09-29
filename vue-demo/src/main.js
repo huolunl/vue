@@ -4,5 +4,5 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-let app = createApp(App).mount('#app')
-app.comp
+
+createApp(App).mount('#app')

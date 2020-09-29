@@ -1,5 +1,6 @@
 <template>
       <div id='app'>
+        <axios></axios>
         <ss :pname="message">
           <!-- 插槽填充, 填充模版中火轮这个插槽-->
           <template v-slot:huolun> 
@@ -34,7 +35,7 @@
         <hello-world></hello-world>
         <mygame></mygame>
         <von></von>
-        <myfliter></myfliter>
+        <!-- <myfliter></myfliter> -->
         <computed></computed>
       </div>
 </template>
@@ -46,7 +47,7 @@ import Index from './components/index.vue'
 import IfandFor from './components/IfAndFor'
 import mygame from './components/vmodel.vue'
 import von from './components/von.vue'
-import myfliter from './components/myfilters.vue'
+// import myfliter from './components/myfilters.vue'
 import computed from './components/computed.vue'
 import watch from './components/watch.vue'
 import classbind from './components/classbind.vue'
@@ -54,6 +55,7 @@ import classobjbind from './components/classobjbind.vue'
 import props from './components/props.vue'
 import emit from './components/emit.vue'
 import slot from './components/slot.vue'
+import axios from './components/axios.vue'
 
 export default {
 
@@ -67,14 +69,15 @@ export default {
     IfandFor,
     mygame,
     von,
-    myfliter,
+    // myfliter,
     computed,
     watch,
     classbind,
     classobjbind,
     props,
     emit,
-    "ss": slot
+    "ss": slot,
+    axios
   },
   data(){ 
     return {
